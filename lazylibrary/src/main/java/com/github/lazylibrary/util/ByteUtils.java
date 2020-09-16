@@ -34,7 +34,31 @@ public class ByteUtils {
 			bytes[w] = (byte)a;
 		}
 	}
-	
+
+
+	/**
+	 * 字符串转数组
+	 * @param str
+	 * @return
+	 */
+	public static byte[] hexStrToByteArray(String str)
+	{
+		if (str == null) {
+			return null;
+		}
+		if (str.length() == 0) {
+			return new byte[0];
+		}
+		byte[] byteArray = new byte[str.length() / 2];
+		for (int i = 0; i < byteArray.length; i++){
+			String subStr = str.substring(2 * i, 2 * i + 2);
+			byteArray[i] = ((byte)Integer.parseInt(subStr, 16));
+		}
+		return byteArray;
+	}
+
+
+
 	/**
 	 * (02)、从bytes上截取一段
 	 * @param bytes 母体
@@ -112,5 +136,21 @@ public class ByteUtils {
 	    	b[i] = (byte) ((in >>> offset) & 0xFF);
 	    }
 	    return b;
+	}
+
+
+	/**
+	 * 从一个byte[]数组中截取一部分
+	 * @param src
+	 * @param begin
+	 * @param count
+	 * @return
+	 */
+	public static byte[] subBytes ( byte[] src, int begin, int count){
+		byte[] bs = new byte[count];
+		for (int i = begin; i < begin + count; i++) {
+			bs[i - begin] = src[i];
+		}
+		return bs;
 	}
 }
